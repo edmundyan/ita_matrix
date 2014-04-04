@@ -1,3 +1,6 @@
+import pickle
+
+
 from browsermobproxy import Server
 server = Server("/home/eyan/tree/ita_matrix/browsermob-proxy-2.0-beta-9/bin/browsermob-proxy")
 server.start()
@@ -11,7 +14,14 @@ driver = webdriver.Firefox(firefox_profile=profile)
 
 proxy.new_har("google")
 driver.get("http://www.google.co.uk")
-print str(proxy.har) # returns a HAR JSON blob
+
+
+with open("pickled", "w") as fp:
+  pickle.dump(proxy.har, fp)
+
+output = proxy.har
+output = output.replace("u'", "'")
+print output
 
 server.stop()
 driver.quit()
