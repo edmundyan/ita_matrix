@@ -41,7 +41,8 @@ class ITASearch(object):
     # hackyiness to remove "{}&&" from the response string
     results = results['response']['content']['text'][4:]
     solution = json.loads(results)
-    self.solution = itasolution.ITASolution(solution['result']['solutionList'])
+    solution = solution['result']['solutionList']
+    self.solution = itasolution.ITASolution(solution)
 
 
   def execute(self):
@@ -58,7 +59,7 @@ class ITASearch(object):
     ActionChains(self.ita.driver).click(submit).perform()
 
     # wait for the results
-    wait = WebDriverWait(self.ita.driver, 20)
+    wait = WebDriverWait(self.ita.driver, 60)
     loading_msg = wait.until(EC.invisibility_of_element_located(
         (By.CSS_SELECTOR, ".itaLoadingMessage")))
     har = self.ita.proxy.har

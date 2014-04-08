@@ -14,7 +14,7 @@ def main():
     'to1': 'New York, NY - All airports',
     'out_date': '6/15/2014',
     'out_span': form.Form.SPAN_DAY_AFTER,
-    'return_date': '6/22/2014',
+    'return_date': '6/23/2014',
     'return_span': form.Form.SPAN_TWO_DAY
   }
   search = itasearch.ITASearch(ita, options)
@@ -22,7 +22,14 @@ def main():
 
   results = search.results()
 
+  print time.time(),
+  print time.strftime('%X %x'),
   print results
+
+  with open('prices.log', 'a') as fp:
+    s = "%s %s %s\n" % (time.time(), time.strftime('%X %x'), results)
+    fp.write(s)
+
 
 
 

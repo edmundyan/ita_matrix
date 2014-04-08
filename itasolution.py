@@ -3,7 +3,8 @@ class ITASolution(object):
     self.solution = solution
 
   def minPrice(self):
-    return self.solution['minPrice']
+    # remove 'USD' prefix
+    return float(self.solution['minPrice'][3:])
 
   def __getitem__(self, index):
     return self.solution['solutions'][index]
